@@ -1,4 +1,4 @@
-1.Single Inheritance:-
+1.Single/Simple Inheritance:- 
 class Parent:
 	methods/attributes
 	
@@ -251,3 +251,200 @@ person1 = {
 		
 1.Series
 2.DataFrame
+
+
+Matplotlib:-
+
+
+
+SQL:- 
+
+show pages lines
+show pages
+show lines
+
+set pages 200 lines 200
+
+cl scr
+
+decs emp;
+describe emp;
+
+ed
+
+Data Types-
+char- Name char(10)
+varchar/varchar2- Name varchar(20), Email varchar(20)
+number(p,s)- age number(10), age number(5, 2)
+
+number(4,1) -> 100.5
+2.02 - number(3,2)
+0.05 - number(1,2)
+number(4,4) ->0.1565
+number(4,3) ->7.123
+number(3,5) ->0.00434
+
+date- 
+dd-mon-yy (17-Mar-26)
+dd-mon-yyyy (17-Mar-2026)
+
+
+lage objects- 4GB
+	clob- Character large Object
+	blob- Binary Large Object
+	
+Constraints:-
+1. not null
+2. unique
+3. primary key
+4. foreign key
+5. check-> phone number(10) check(length(phone)==10)
+6. default-> course varchar2(10) default "Python"
+
+Statements:-
+1. DDL 
+2. DML
+3. DQL
+4. DCL
+5. TCL
+
+DDL:-
+create user user2 identified by tiger;
+select * from all_users;
+
+grant resource, connect to user2;
+
+create table table-name (col1 data-type constraints,
+					col2 data-type constraints,...)
+
+e.g:- CREATE TABLE students (
+    student_id INT PRIMARY KEY,
+    student_name VARCHAR(50),
+    age INT check (age>20),
+    city VARCHAR(50)
+);
+
+DML:-
+Insert data into a table-
+Syntax:- 
+1)insert into table-name(val1, val1, val3....)
+2)insert into table-name(col1, col2..) values (val1,val2...)
+
+e.g: INSERT INTO students VALUES (2, 'Pranab', 21, 'Bhubaneswar');
+
+e.g: insert into students(student_id, student_name, age, city) 
+		values(1,'Manas', 21, 'BBSR');
+			
+
+CREATE TABLE courses (
+    course_id INT PRIMARY KEY,
+    course_name VARCHAR(50),
+    instructor VARCHAR(50)
+);
+
+CREATE TABLE enrollments (
+    enrollment_id INT PRIMARY KEY,
+    student_id INT,
+    course_id INT,
+    enrollment_date DATE,
+    FOREIGN KEY (student_id) REFERENCES students(student_id),
+    FOREIGN KEY (course_id) REFERENCES courses(course_id)
+);
+
+INSERT INTO students VALUES (3, 'Manas', 22, 'Bhubaneswar');
+INSERT INTO students VALUES (4, 'Riya', 21, 'Cuttack');
+INSERT INTO students VALUES (5, 'Amit', 23, 'Puri');
+
+INSERT INTO courses VALUES (101, 'HTML', 'Mr. Sharma');
+INSERT INTO courses VALUES (102, 'JavaScript', 'Ms. Gupta');
+INSERT INTO courses VALUES (103, 'React', 'Mr. Mehta');
+
+INSERT INTO enrollments VALUES (1001, 1, 101, DATE '2025-10-01');
+INSERT INTO enrollments VALUES (1002, 1, 103, DATE '2025-10-10');
+INSERT INTO enrollments VALUES (1003, 2, 102, DATE '2025-10-05');
+INSERT INTO enrollments VALUES (1004, 3, 101, DATE '2025-10-07');
+
+
+TCL:-
+Step-1
+update students 
+set age = 30
+where STUDENT_ID = 1;
+
+Step-2
+savepoint update1;
+
+Step-3
+update students 
+set age = 50
+where STUDENT_ID = 1;
+
+Step-4
+rollback to savepoint update2;
+
+Step-5
+commit;
+
+DQL:-
+projection
+selection
+joins
+
+Syntax:-
+1)	select */columnName
+	from tableName;
+
+2)	select */distinct columnName
+	expression/aliasing from tableName;
+	
+Order of execution:-
+1- from
+2- select
+
+Q) (WAQTD)Write a query to display details of employee.
+ans- select * from emp;
+
+Q) WAQTD details of department. dept
+ans- select * from dept;
+
+Q) WAQTD details of salary grade. salgrade
+ans- select * from salgrade;
+
+Q) WAQTD employee name, employee salary of all the employee.
+ans- select ename, sal 
+	from emp;
+	
+Q) WAQTD unique jobs.
+ans- select distinct job from emp;
+
+Q) WAQTD unique job, department no of all the employee.
+ans- select distinct job, deptno from emp;
+
+Expression & Aliasing:-
+Expression- sal * 12
+Aliasing- as, ( ), " "
+
+Q) WAQTD anual salary of each emp.
+ans- select sal*12 as AnualSalary from emp;
+ans- select sal*12  AnualSalary from emp;
+ans- select sal*12 as "Anual Salary" from emp;
+ans- select sal*12  "Anual Salary" from emp;
+
+Q) WAQTD all the details of employee along with their half term salary and anual salary.
+ans- select emp.*, sal*6 as "Half Term", sal*12 as "Anual Salary"
+	from emp;
+	
+Selection:- 
+select */distinct column-name expression/aliasing
+		from table-name
+		where <condition>;
+
+Order of execution: from
+					where
+					select
+					
+Operators:- 
+1. Arithmatic Operators (+, -, *, /)
+2. Relational Operators (>,<,>=,<=, =, != / <>)
+3. Logical Operators ( and, or, not)
+4. Special Operators (is, is not, in, not in, like, not like, between, not between)

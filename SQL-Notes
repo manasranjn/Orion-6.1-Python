@@ -1,0 +1,316 @@
+DML:-
+Create a copy of table.
+Syntax:
+Create table table-name as select statement;
+ex: create table emp1 as select * from emp;
+
+DML(Data Manipulation Language):
+-Used to manage and manipulate the data inside the database.
+-DML is not directly connecteed to database, so the changes are not permanent.
+-DML commands are not auto-commited.
+-To make the changes permanent to database we should use TCL.
+
+1)insert: Used to insert the values into the table.
+Syntax: 1(if you want store all the values into all the columns for particular row)
+insert into table-name values (value1, value2, value3.....);
+ex:insert into product1 values (1,'car',1200,12-sep-2022);
+
+syntax2:(if you want to store the values for particular column use syntax2)
+insert into table-name (col1, col2, col3.....) values (value1, value2, value3.....) ;
+ex: insert into product1 (pid,pname) values(1,bus);
+
+TCL:Used to control the transaction done by the DML statement.
+-TCL are applicable only for DML statement.
+
+commit: used to save the data permanently into the database.
+syntax: commit;
+
+DQL: Data Query Language
+-Used to retreive the data from the Database.
+-select : Used to retreive/select the data from the table/database and to display it.
+-The returned rows may be set of rows stored in a table called result table or result set.
+-To retreive the data we have three different ways:
+1)projection
+2)selection
+3)joins
+																	
+Projection: Used to retreive the data just by selecting the column is known as projection.
+syntax: select */distinct column-name expression/aliasing
+        from table-name;
+order of execution: 1)from
+					2)select
+note: * selects all the column, once the column is select by default values get select.
+-If user gives the table-name which is not present in the database, then user gets an error(table/view dosen't exist,)
+-If user gives the col-name which is not present in the table, then user gets an error as invalid-identifier.
+-Query: its a request sent to database to fetch the required data.
+
+Q1)WAQTD details of employee.
+ans- select * from emp;
+Q2)WAQTD details of department.
+ans- select * from dept;
+Q3)WAQTD salgrade details.
+ans- select * from salgrade;
+
+Distinct: Used to remove the duplicate in specified column or in table.
+-We can include more than one column in one distinct keyword/clause.
+-We cannot have more than one distinct in one select statement.
+-If the user has a requirement of using distinct, always the distinct should be the 1st argument after the select clause.
+
+Q4)WAQTD employee name and salary of all the employee.
+ans- select ename,sal from emp;
+Q5)WAQTD employee name, salary, mgr, comm and deptno of all employee.
+ans- select ename,sal,mgr,comm,deptno from emp;
+Q6)WAQTD unique jobs.
+ans- select distinct job from emp;
+Q7)WAQTD unique deptno.
+ans- select distinct deptno from emp;
+Q8)WAQTD unique job, deptno of employee.
+ans- select distinct job,deptno from emp;
+
+Expression/aliasing:
+Expression: Combination of operand and operator.
+
+Aliasing: Used to rename the column-name.
+-Aliasing can be done in 3 ways.
+		1)using as keyword
+		2)using space( )
+		3)using double quote("")
+1)old-column-name as aliasing-name
+2)old-col-name aliasing-name
+2)old-column-name "aliasing-name" (if you want space inside single column use the 3rd way(""))
+
+Q9)WAQTD all the details of employee along with annualsal.
+ans- select emp.*,sal*12 as annualsal from emp;
+Q10)WAQTD all the details of employee along with their half term salary and anual salary.
+ans- select emp.*,sal*6 "HALF TERM SAL",sal*12 "ANUAL SAL" from emp;
+Q11)WAQTD empno as eid, sal as salary and deptno as dno.
+ans- select empno eid,sal as salary,deptno "DNO" from emp;
+
+Selection: Used to retreive the data by selecting nth columns and rows is known as selection.
+syntax- select */distinct column-name expression/aliasing
+		from table-name
+		where <condition>;
+
+Order of execution: from
+					where
+					select
+
+Note: Where clause: used to filter the records inside the table.
+-Where clause executes row by row process.
+-we can write n number of conditon inside the where clause.
+-We cannot write more than one where clause in one select statement.
+-Where clause is implimented on rows.
+
+**- If the condition is not satisfied in any of the row, we get the output as no rows selected.(If the given condition are false)
+-In the selection, select is dependent on the where clause.(filtered rows)
+
+Q1)WAQTD details of MARTIN.
+ans- select * from emp where ename='MARTIN';
+
+Q2)WAQTD details of employee who works as CLERK.
+ans- select * from emp where job = 'CLERK';
+
+Q3)WAQTD details of employee who are earning 3000.
+ans- 
+
+Q4)WAQTD ename and deptno, if the employee works in deptno 30.
+ans- 
+
+Q5)WAQTD ename and hiredate, if employee hired on '03-DEC-81'.
+ans- select ename, hiredate from emp
+	where hiredate = '03-DEC-81';
+
+Q6)WAQTD employee name, salary and mgr, if employee reporting manager number is 7839.
+ans-
+
+Q7)WAQTD details of employee who earns commision more than 400.
+ans- 
+
+Q8)WAQTD details of employee, if employee number is 7902.
+ans-
+
+Q9)WAQTD details of employee along with annualsal, if annualsal is 36000.
+ans- select emp.*, sal * 12 as "Annual Sal" from emp	
+	where sal * 12 = 36000;
+
+Q10)WAQTD details of employee along with halfterm salary, if halfterm salary of employee is 40000.
+ans-
+
+OPERATORS:
+-Operator is uesd to perform operation between operands.
+Types of Operators:
+1)Arithmatic operator:(+,-,*,/)
+2)Relational/Comparision operator:(>, <, >=, <=, !=(<>))
+3)Logical Operators ( and, or, not)
+4)Special operator: is, is not, in, not in, like, not like, between, not between.
+
+1)Arithmatic operator: 
+----------------------
+-Used to perform arithmatic operation between the operand.
+
+Q1)WAQTD employee name, sal and also display the salary after 10% hike.
+ans- select ename, sal, sal+(sal*10/100) as hike from emp;
+
+Q2)WAQTD employee name, sal and also display the salary after 20% deduction.
+ans- 
+
+Q3)WAQTD employee name,sal and also display the salary after 10% hike,also display their names if and only if the hiked salary is more than 20000.
+ans- 
+
+
+Relational operator: 
+--------------------
+-Used to compare the given operands.(<,>,<=,>=,!=(<>))
+Q1)WAQTD employee details, if employee earn more than 3000.
+ans- select * from emp 
+	 where sal>3000;
+
+Q2)WAQTD employee details, if employee earn less than 1000.
+ans- select * from emp 
+	 where sal<1000;
+
+Q3)WAQTD employee details, except who are working in deptno 10.
+ans- 
+
+Q4)WAQTD employee details, except who works as ANAYST.
+ans- 
+
+Q5)WAQTD employee details, except whoes mgr number is 7698.
+ans- select * from emp 
+	 where mgr !=7698;
+
+Q6)WAQTD employee details, if employee working as manager.
+ans- 
+
+Q7)WAQTD employee details, if employee earning 3000 or more than 3000.
+ans- 
+
+
+Logical Operator:
+----------------
+AND: 
+-If all the conditions are true, it returns true(select the records) else false(reject the records)
+
+Q1)WAQTD employee name, sal and deptno, if employee earning more than 2000 and works in deptno 10.
+ans- select ename, sal, deptno 
+	 from emp 
+	 where sal>2000 and deptno=10;
+
+Q2)WAQTD employee details, if employee number is 7902 and also works as SALESMAN.
+ans- select * from emp 
+	 where empno=7902 and  job = 'SALESMAN';
+
+Q3)WAQTD employee details, if employee mgr number is 7839 and also comm is more than 300.
+ans-
+
+Q4)WAQTD employee details, if employee hired on 03-DEC-81 and works in deptno 10.
+ans- 
+
+Q5)WAQTD employee details, if employee working as ANAYST in deptno 20.
+ans-
+
+Q6)WAQTD employee details, if employee earn more than 1000 but less than 3000.
+ans- 
+
+
+OR: 
+-If any of the condition is true, it returns true.
+
+Q1)WAQTD employee details, if employee works in deptno 10 or 20 or 30 or 40.
+ans- select * from emp 
+	where deptno=10 or deptno=20 or deptno=30 or deptno=40;
+
+Q2)WAQTD employee name, sal and job works as SALESMAN or MANAGER.
+ans- select ename,sal,job from emp 
+	where job='SALESMAN' or job='MANAGER';
+
+Q3)WAQTD employee name,sal,mgr,deptno and job, if employee name is SMITH or MILLER.
+ans- 
+
+Q4)WAQTD employee number,name and job, if employee num ber is 7566 or 7902.
+ans- 
+
+Q5)WAQTD employee name, if employee mgr is 7839 or 7639.
+ans- 
+
+
+Combination of (AND,OR)
+Q1)WAQTD employee name, sal, deptno and job works as ANAYST and also in deptno 10 or 20.
+ans- select ename,sal,deptno,job 
+	 from emp 
+	 where job='ANALYST' and (deptno=10 or deptno=20);
+	 
+Q2)WAQTD employee name, sal, deptno and job, if employee earning more than 3000 as clerk or salesman or manager.
+ans- 
+	 
+Q3)WAQTD employee name, sal and job works as analys or president on deptno 10 or 20 and also employee mgr number is 7839.
+ans- 
+
+Q4)WAQTD employee details, if employee earn less than 3000 but works in deptno 20 or 30 and also except who works as MANAGER or PRESIDENT.
+ans- select * from emp 
+	 where sal<3000 and (deptno=20 or deptno=30) and (job!='MANAGER' and job!='PRESIDENT');
+
+
+NOT:
+-Used to give the opposite values.
+Syntax: not column-name='VALUE';
+
+Q1)WAQTD employee details, except employee who works in deptno 20.
+ans- select * from emp 
+	 where not deptno = 20;
+
+Q2)WAQTD employee details, except employee who works as clerk also except salesman.
+ans- 
+
+Q3)WAQTD employee name and salary, except who are earning more than 3000.
+ans- 
+
+
+Combination(AND,OR,NOT):
+Q1)WAQTD employee name, sal and deptno, if employee earning more than 2000 but less than 4000 and working as clerk or salesman except whoes deptno is 20.
+ans- select ename, sal, deptno 
+	from emp 
+	where sal>2000 and sal<4000 and (job='CLERK' or job='SALESMAN') and not deptno=20;
+
+Q2)WAQTD employee name,sal,job and deptno, if employee work in deptno 10 or 20, as clerk or manager except smith and allen.
+ans- 
+
+Q3)WAQTD employee details, if employee earn more than 3000 and also works as president in deptno 10 or 20, except martin and miller.
+ans- 
+
+Date :
+When we deal with dates we have to follow this-
+1)on =
+2)before <
+3)after >
+4)from >=
+
+Q1)WAQTD employee details, if employee hired on '23-JAN-82'.
+ans- select * from emp
+	 where hiredate='23-JAN-82';
+
+Q2)WAQTD employee details, if employee hired after '03-DEC-81'.
+ans- select * from emp
+	 where hiredate>'03-DEC-81';
+
+Q3)WAQTD employee details, if employee hired after year 81.
+ans- select * from emp
+	 where hiredate > '31-DEC-81';
+
+Q4)WAQTD employee details, if employee hired after year 83 and works in deptno 10 or 20.
+ans- 
+
+Q5)WAQTD employee details, if employee hired before year '10-JAN-81'.
+ans- select * from emp
+	 where hiredate <'10-JAN-81';
+
+Q6)WAQTD employee details, if employee hired before year 85 and works as clerk or manager in deptno 10 or 20.
+ans- select * from emp
+	 where hiredate < '01-JAN-85' and (job='CLERK' or job='MANAGER') and (deptno=10 or deptno=20);
+
+Q7)WAQTD employee details, if employee hired after year 81 but hired before year 85.
+ans- 
+
+Q8)WAQTD employee details, if employee hired from 81 and except salesman.
+ans- 
+
