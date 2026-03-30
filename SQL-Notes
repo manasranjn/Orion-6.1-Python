@@ -314,3 +314,231 @@ ans-
 Q8)WAQTD employee details, if employee hired from 81 and except salesman.
 ans- 
 
+Special Operator:
+-----------------
+IS:
+-Used to evalute null values inside the specific column.
+syntax: column-name is null;
+
+Q1)WAQTD employee details, if employee dont have any reporting manager.
+ans- select * from emp
+	 where mgr is null;
+
+Q2)WAQTD employee name,sal and comm, if employee not earning any commission.
+ans- select ename, sal, comm 
+	 from emp
+	 where comm is null;
+
+Q3)WAQTD employee details, who are not working in any dept.
+ans- select * from emp
+	where deptno is null;
+
+Q4)WAQTD employee details, except employee who work as clerk also except salesman and employee's dont earn any commission.
+
+
+IS NOT:
+-Used to evalute not null values.
+Syntax: column-name is not null;
+
+Q1)WAQTD employee details who are earning some salary in deptno 10.
+ans- select * from emp 
+	 where sal is not null and deptno = 10;
+
+Q2)WAQTD employee details who have reporting manager.
+ans- select * from emp 
+	 where mgr is not null;
+
+Q3)WAQTD employee details, who are earning some commission.
+
+IN:
+-Used to evalute multiple values in specified column.
+-It selects the data or values given in RHS.
+Syntax: column-name in (value1,value2...);
+
+Q1)WAQTD employee details, if employee works in dept 10, 20 or 30.
+ans- select * from emp
+	 where deptno in (10,20,30);
+
+Q2)WAQTD employee name and sal, if employee name is SMITH or ALLEN or MARTIN.
+ans- select ename,sal from emp
+	 where ename in ('SMITH','ALLEN','MARTIN');
+
+Q3)WAQTD employee details, if employee earning more than 2000 but less than 5000, as analyst or manager in deptno 20 or 30 and also hired after year 81.
+ans- select * from emp
+	 where sal>2000 and sal<5000 and job in ('ANAYST','MANAGER') and deptno in (20,30) and hiredate >'31-DEC-81';
+
+Q4)WAQTD employee name and deptno, if employee is working in dept 10 or 20 or 30 or 40 or 50.
+
+
+NOT IN: Used to evalute multiple values in a specific column.
+-It rejects the values given in RHS and selects all the other values in specified column.
+-In LHS pass 1 argument, RHS we can pass one or more values.
+Syntax: column-name not in (value1,value2.....);
+
+Q1)WAQTD employee details, except who works in deptno 10 and 20.
+ans- select * from emp
+	 where deptno not in(10,20);
+
+Q2)WAQTD employee details, except clerk,manager,analyst and salesman.
+
+Q3)WAQTD employee name,sal,deptno and job,except clerk and salesman, also except who works in deptno 10 and 30.
+
+Q4)WAQTD employee details, who are not earning any commission but works in some department as clerk or salesman, except employee's who works in deptno 20 and 30.
+
+
+BETWEEN:
+-Used for range purpose.
+Syntax: column-name between value1 and value2;
+
+value1 and value2 are given ranges.
+(value1 is lower range, value2 is higher range)
+
+Q1)WAQTD employee name nad sal, if employee earning 1000 to 3000.
+ans- select ename, sal from emp 
+	 where sal between 1000 and 3000;
+
+Q2)WAQTD employee name and hiredate, if employee hiredate from year 81 to year 85.
+ans- select ename,hiredate from emp 
+	 where hiredate between '01-JAN-81' and '31-DEC-85' ;
+
+Q3)WAQTD employee name and  hiredate, if employee hired from year 80 to year 81 or from year 85 to year 87.
+
+
+NOT BETWEEN:
+-Opposite to between operator.
+Syntax: column-name not between value1 and value2;
+
+Q1)WAQTD employee name and sal, except who are earning from 1000 to 3000.
+ans- select ename,sal from emp 
+	 where sal not between 1000 and 3000;
+
+Q2)WAQTD employee name and hiredate, except who are hired from year 81 to year 85.
+ans- select ename,hiredate from emp 
+	 where hiredate not between '01-JAN-81' and '31-DEC-85' ;
+
+LIKE:
+-Used for pattern matching.
+There are 2 wildcards:
+1)_ :Which takes 1 character.
+2)% :Which may take zero, 1 or more character.
+
+Syntax: where column-name like 'Pattern';
+
+Q1)WAQTD employee name, if employee name starts with character 'A'.
+ans- select ename from emp 
+	 where ename like 'A%';
+
+Q2)WAQTD employee name, if employee name starts with character 'S'.
+ans- select ename from emp
+	 where ename like 'S%';
+
+Q3)WAQTD employee name, if employee name starts with character 'A' or 'M'.
+ans- select ename from emp
+	 where ename like 'A%' or ename like 'M%';
+
+Q4)WAQTD employee name, if employee name starts with character 'A' but end with 'S'.
+ans- select ename from emp
+	 where ename like 'A%S';
+
+Q5)WAQTD employee name, if employee name contains at least 1 'A'.
+ans- select ename from emp
+	 where ename like '%A%';
+
+Q6)WAQTD employee name, if employee name contains at least 2 'A'.
+ans- 
+
+Q7)WAQTD employee name and sal, if employee name contains exactly 4 characters.
+ans- select ename,sal from emp
+	 where ename like '____';
+
+Q8)WAQTD employee name and sal, if employee name last 2nd character is 'E'and their salary ends with 0.
+ans- 
+
+Q9)WAQTD employee name, if employee name contains two consecutive L.
+ans- 
+
+Q10)WAQTD employee name, if employee name starting 3rd character is 'M' and works in dept 10 or 30.
+ans- select ename from emp
+	 where ename like '__M%' and deptno in(10,30);
+
+Q11)WAQTD employee name and hiredate, if employee hired in FEB.
+ans- 
+
+Q12)WAQTD employee name and hiredate, if employee hired in year 81.
+ans- 
+
+Q13)WAQTD employee name and job, if employee name starts with 'A' and their job starts with 'S'.
+ans- 
+
+Q14)WAQTD employee details, if employee name starts with vowels.
+ans- select * from emp
+	 where (ename like 'A%' or
+	 ename like 'E%' or
+	 ename like 'I%' or
+	 ename like 'O%' or
+	 ename like 'U%');
+
+Q15)WAQTD employee details, if employee name ends with vowels.
+ans- 
+
+Q16)WAQTD employee name, if employee name contains @.
+ans- select * from emp 
+	 where ename like '%@%';
+
+
+NOTE:
+If we want to find the _ or % in a given names, we have to make use of escape.
+ex: select ename from emp
+	where ename like '%@_%' escape '@';
+
+NOT LIKE:
+-It is just opposite to like operator.
+-Instead of selecting the pattern, it is going to reject the given pattern.
+Syntax: column-name not like 'pattern';
+
+Q1)WAQTD employee name, except employees whoes name starting with 'A'.
+ans- select ename from emp
+	 where ename not like 'A%';
+
+Q2)WAQTD employee name, except employees whoes name ending with 'R'.
+ans- 
+
+Q3)WAQTD employee name, except employees whoes name starting with 'A' also except employees whoes name starting with 'S'.
+ans-
+
+Q4)WAQTD employee name, except employees whoes name contains at least 1 'A'.
+ans- 
+
+Q5)WAQTD employee name, except employees whoes name starting with 'A' and ending with 'S'.
+ans- 
+
+Q6)WAQTD employee name and hiredate, except employees who hired in DEC.
+ans- 
+
+Q7)WAQTD employee name and salary, except whoes salary ending with 0.
+ans- 
+
+Q8)WAQTD employee name, if employee name starting with consonants.
+ans- select ename from emp
+	 where (ename not like 'A%' and
+	 ename not like 'E%' and
+	 ename not like 'I%' and
+	 ename not like 'O%' and
+	 ename not like 'U%');
+
+Q9)WAQTD employee name, if employee name ending with consonants.
+ans- 
+
+Q10)WAQTD employee name, except employees whoes name starting with consonants also except whoes name ending with vowels.
+ans- select ename from emp
+	 where (ename like 'A%' or
+	 ename like 'E%' or
+	 ename like 'I%' or
+	 ename like 'O%' or
+	 ename like 'U%') and
+	 (ename not like '%A' and
+	 ename not like '%E' and
+	 ename not like '%I' and
+	 ename not like '%O' and
+	 ename not like '%U');
+
