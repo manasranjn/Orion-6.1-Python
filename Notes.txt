@@ -448,3 +448,16 @@ Operators:-
 2. Relational Operators (>,<,>=,<=, =, != / <>)
 3. Logical Operators ( and, or, not)
 4. Special Operators (is, is not, in, not in, like, not like, between, not between)
+
+
+Functions:-
+1)SRF- Single-Row Functions
+2)MRF- Multi-Row Functions
+
+SRF- select, where, order by
+i)Character Functions
+ii)Number Functions
+iii)Date Functions
+iv)Special Functions
+
+i)Character Functions:-

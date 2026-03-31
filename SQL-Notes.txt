@@ -542,3 +542,149 @@ ans- select ename from emp
 	 ename not like '%O' and
 	 ename not like '%U');
 
+-:Functions:-
+-------------
+-Set of instruction which is used to perform some specific task.
+
+Function contains:
+1)Function name
+2)Number of arguments
+3)Return type
+
+There are two types of function:
+1)SRF(Single row function)
+2)MRF(Multi roe function)
+
+1)SRF():
+-It takes n no. of inputs and executes and produce n nu. of output.
+-Single row function can be used in 
+	select
+	where
+	order by
+
+Types of SRF():
+1)Character Function
+2)Number Function
+3)Date Function
+4)Special Function
+
+
+Character Function:-
+------------------
+-It takes character(alphanumeric) input and produce the output either alphabets or numbers.
+
+upper():- Used to convert the data into uppercase.
+Syntax: upper(arg1)
+
+Q1)WAQTD to convert all the employee names into upper case.
+ans- select upper(ename) from emp;
+
+Q2)WAQTD to convert all the employee names and job into upper case.
+
+Q3)WAQTD to convert you name into upper case.
+ans- select upper('Manas') from dual;
+
+NOTE:
+-Dual table is dummy table present iside the database, with 1 row 1 column, by default it contains value X with varchar2(1) type.
+
+lower():- Used to convert the data into lowercase.
+Syntax: lower(arg1)
+
+Q1)WAQTD to convert all the employee names into lowercase.
+ans- select lower(ename) from emp;
+
+Q2)WAQTD to convert your name into lowercase.
+ans- 
+
+Q3)WAQTD details of employee SMITH.(with irrespective of case)
+ans- select * from emp where lower(ename)='smith';
+
+initcap():- Used to convert all the words 1st character as uppercase.
+Syntax: initcap(arg1)
+
+ex- select initcap('e sala cup namde') from dual;
+o/p- E Sala Cup Namde
+
+ex- select initcap('you are beautiful') from dual;
+ex- select initcap('YOU ARE BEAUTIFUL') from dual;
+o/p- You Are Beautiful
+
+Character Manipulation:-
+length():- It is used to display the number of characters present in the given data.
+Syntax: length(arg1)
+
+Q1)WAQTD employee name and also no. of characters present in their names.
+ans- select ename, length(ename) as length from emp;
+
+Q2)WAQTD employee details if the employee name exactly contains 5 characters in their name.
+ans- select * from emp 
+	 where length(ename)=5;
+
+Q3)WAQTD employee name and no of characters present in their name for allen and ward.
+ans- 
+
+Q4)WAQTD employee names whoes length is 4 or 5.
+ans- 
+
+reverse():- Used to reverse the given data.
+Syntax: reverse(arg1)
+
+Q1)WAQTD to reverse all the employee name.
+ans- select reverse(ename) from emp; 
+
+Q2)WAQTD to reverse Your Name.
+
+
+concat():- Used to merger the given string or data.
+Syntax: concat(arg1,arg2)
+-concat operator (||) can be used in select clause.
+
+Q1)WAQTD 'hi' before all the employee names.
+ans- select concat('Hi ',ename) from emp;
+
+Q2)WAQTD 'hi' before all the employee names along with display 'your designation is', particular designation must displayed.
+ans- select concat(concat(concat('Hi ',ename),' Your designation is '),job) from emp;
+
+Q3)WAQTD 'hi' for all the employee name and also display 'your salary is hiked upto 10%' with 10% salary must be displayed.
+ans- select concat(concat(concat('Hi ',ename),' Your salary is hiked upto 10% '),(sal+sal*10/100)) from emp;
+
+trim():-Used to trim or remove the particular character from the given string.
+Syntax: trim(leading/trailing/both 'char' from string)
+
+ex:- select trim(leading 'P' from 'PPT') from dual;
+o/p- T
+
+ex:- select trim(trailing 'P' from 'PPT') from dual;
+o/p- PPT
+
+ex2:- select trim(trailing 'M' from 'ADAM') from emp;
+o/p- ADA
+
+ex3:- select trim(both 'P' from 'POPP') from dual;
+o/p- O
+
+replace():- Used to replace the given string.
+Syntax:- replace(arg1, arg2, arg3)
+arg1- main string
+arg2- search string
+arg3- replace string
+NOTE: If you dont pass the 3rd argumrnt, 2nd argument(search string) will removed from the main string(1st arg).
+
+Q1)WAQTD employee name also display if the employee name contains character 'R' replace it with 'D'.
+ans- select ename, replace(ename, 'R','D') from emp;
+
+Q2)WAQTD the no of character 'A' present in the employee name.	
+ans- select length(ename)-length(replace(ename,'A')) from emp;
+
+Q3)WAQTD employee name and job also replace the character 'K' from job to character 'MMM'.
+ans- 
+
+Q4)WAQTD employee name also remove the character 'A' from all the employee names in deptno 10 or 20.
+ans- 
+
+Q5)WAQTD no of 'M' present in your name.
+ans- 
+
+Q6)WAQTD employee name and job, also replace the character 'D' to 'Z' from all job only for those whose mgr is 7788 or 7839.
+ans- select ename,job,replace(job,'D','Z')
+	 from emp where mgr in (7788,7839);
