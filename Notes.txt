@@ -459,5 +459,3 @@ i)Character Functions
 ii)Number Functions
 iii)Date Functions
 iv)Special Functions
-
-i)Character Functions:-

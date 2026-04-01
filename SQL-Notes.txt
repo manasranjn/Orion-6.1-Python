@@ -688,3 +688,133 @@ ans-
 Q6)WAQTD employee name and job, also replace the character 'D' to 'Z' from all job only for those whose mgr is 7788 or 7839.
 ans- select ename,job,replace(job,'D','Z')
 	 from emp where mgr in (7788,7839);
+
+translate(): It used to replace the given string, but it replace character by character.
+Syntax: translate(arg1,arg2,arg3)
+arg1:main string
+arg2:search string
+arg3:replace string
+
+ex: select translate('SMITHA','S','Z') from dual; -> ZMITHA
+	select translate('SMITHA','S',' ') from dual; ->  MITHA
+	select translate('SMITHA','SA','Z') from dual; -> ZMITH
+	select translate('SMITHA','SA','YZ') from dual; -> YMITHZ
+	select translate('SMITHA','SMT','HK') from dual; -> HKIHA
+
+Q1)WAQTD only consonants from employee names.
+ans- select replace(replace(replace(replace(replace(ename,'A'),'E'),'I'),'O'),'U') from emp;
+or 
+select translate(ename , 'AEIOU', '     ') from emp; (it add space if the any of the vowel is present)
+
+Q2)WAQTD only vowel from the employee names and all other character filled with space.
+ans- select translate(ename,translate(ename,'AEIOU','     '),'     ')from emp;
+
+
+substr():- It is used to extract the part of the given string.
+Syntax:- substr(mainString, startIndex, no of characters)
+
+Q1) WAQTD first 3 characters from all the emp names.
+ans- select substr(ename, 1, 3) from emp;
+
+Q2) WAQTD last 3 characters of your name.
+ans- select substr('Pranab',-3) from dual;
+
+Q3)WAQTD ename, and also display the last 3 charecter after reverse of the job.
+ans- select ename, substr(reverse(job),-3) from emp;
+
+Q4) WAQTD ename, also display the last 2 char of the emp name if emp name have exactly 5 characters.
+ans- 
+
+Q5) WAQTD emp name and job if ename end with R and his job ends with K.
+ans- 
+
+Q6) WAQTD ename if ename ends with A or R.
+ans-
+
+
+instr:- Dsiplay the position of the character, it returns the index values of particular occurence.
+
+Syntax: instr(main-string, search-string, starting-index, no. of occurance)
+
+select instr('Jagadish', 'a', 3, 1) from dual;
+
+select instr(ename, 'A', 1, 1) from emp;
+
+Q1)WAQTD ename if the employee name contains at least 1 'A'.
+ans- select ename from emp
+	where instr(ename, 'A', 1, 1)!=0;
+
+Q2)WAQTD ename if the employee name contains at least 2 'L' in their their names.
+ans- select ename from emp
+	where instr(ename, 'L', 1, 2) !=0;
+
+Q3) input:- ravi output:-2
+o/p- select instr('ravi','a',1,1) from dual;
+
+Q) input:- soumya 
+select instr('soumya', 'm', 1,1) from dual;
+
+Q4) input:- vanivilas output:-6
+ans- select instr('vanivilas','i',1,2) from dual;
+
+Q5)WAQTD ename,job and hiredate if the job contains at least 2 'S'.
+ans- 
+
+Q6) WAQTD ename, if emp name contains exactly 2A
+ans-
+
+2) Number Functions:- Used to perform operation based on numeric values.
+------------------
+
+mod(arg1, arg2)- Used to divide the 1st argument with 2nd argument and return the reminder value.
+mod(10,3) -> 1
+
+1)WAQTD ename, job if the emp name contains even characters.
+select ename, job from emp
+where mod(length(ename), 2) = 0;
+
+2) WAQTD ename, job if the emp name contains odd characters.
+select ename, job from emp
+where mod(length(ename), 2) != 0;
+
+round(arg1, arg2):- It is used to round off the given value.
+-If the decimal value is in the range of 0-4 it returns the current integer value
+-If the decimal value is in the range of 5-9 it returns the next integer value.
+
+select round(10.4) from dual;
+select round(10.6) from dual;
+select round(10.6666, 1) from dual;
+select round(10.1234, 1) from dual;
+select round(10.145, 2) from dual;
+select round(123.456, -1) from dual;
+select round(123.456, -2) from dual;
+select round(123.456, -3) from dual;
+select round(723.456, -3) from dual;
+
+trunc(arg1, arg2):-  It is used to remove the decimal value.
+Syntax:- trunc(arg1)
+	trunc(arg1, arg2)
+
+select trunc(44.6123) from dual;
+select trunc(44.412, 1) from dual;
+select trunc(44.44776345, 2) from dual;
+select trunc(44.4, -1) from dual;
+
+ceil():- It rounds to next integer.
+select ceil(15.3) from dual;
+select ceil(15.443) from dual;
+select ceil(15.0000001) from dual;
+select ceil(15.000000) from dual;
+
+sqrt():- It is used to return the square root of the given number.
+
+select sqrt(9) from dual;
+select sqrt(225) from dual;
+select trunc(sqrt(50)) from dual;
+select ceil(sqrt(50)) from dual;
+
+power():- It returns the power of 1st argument to 2nd argument.
+
+select power(2,2) from dual;
+select power(15,2) from dual;
+select power(15,-2) from dual;
