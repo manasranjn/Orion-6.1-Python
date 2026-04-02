@@ -818,3 +818,151 @@ power():- It returns the power of 1st argument to 2nd argument.
 select power(2,2) from dual;
 select power(15,2) from dual;
 select power(15,-2) from dual;
+
+abs():- It is used to convert the negative values.
+select abs(-2) from dual;
+select abs(-2.2) from dual;
+
+
+Date Function:- Used to perform operation based on given date data.
+-------------
+Note:-
+sysdate- It gives the system date.
+current_date- It gives the current date or todays date.
+systimestamp- It gives the system's date along with time including millisecond.
+
+Q) WAQTD system date.
+ans- select sysdate from dual;
+
+Q) WAQTD current date.
+ans- select current_date from dual;
+
+Q) WAQTD today's date along with time.
+ans- select systimestamp from dual;
+
+Q) WAQTD the date after 10 days.
+ans- select current_date +10 from dual;
+
+1)add_months:- It will add the months to the given date.
+Syntax: add_months(arg1,arg2)
+arg1- date
+arg2- how many months to be added(in number)
+
+Q1)WAQTD ename and hiredate along with add 12 months to the hiredate and display it.
+ans- select ename, hiredate, add_months(hiredate,12) as "after 1 year" from emp;
+
+Q2)WAQTD the current date after 5 years.
+ans- select add_months(current_date, 60) from dual;
+
+Q3)WAQTD ename, hiredate, and job display the hiredate after two years.
+ans-
+
+Q4)WAQTD ename, hiredate also display the hiredate before 3 years.
+ans- select ename, hiredate, add_months(hiredate, -36) from emp;
+
+extract() :-
+Used to extract the month or year or date from the given date.
+Syntax: extract(day/month/year from current_date/sysdate/hiredate/...)
+
+Q1)WAQT extract the month where SMITH is hired.
+ans- select extract(month from hiredate) from emp 
+	 where ename='SMITH' ;
+
+Q2)WAQT extract the year where ALLEN is hired.
+ans- select extract(year from hiredate) from emp 
+	 where ename='ALLEN';
+
+Q3)WAQT extract the date where KING and SCOTT is hired, if they work in deptno 10/20/30 and if their length of the name is 4.
+ans- select ename, extract(day from hiredate) from emp 
+	 where ename in('KING','SCOTT') and deptno in (10,20,30) and length(ename)=4;
+
+Q4)WAQT extract the month for all the employee.
+ans- 
+
+Q5)WAQTD ename, hiredate and extract the date where employees are hired.
+ans-
+
+Q6)WAQT extract year from '12-JAN-2003'.
+ans- select extract(year from date '2003-01-12') from dual;
+
+SPECIAL Function:-
+------------------
+General SRF:- nvl,nvl2(NULL VALUE LOGIC)
+
+1)nvl():- Used to replce a value of null.
+-Used to overcome the drawback null values.
+Syntax: nvl(arg1,arg2)
+-If the arg1 is null it substitutes the 2nd arg else it substitutes the same 1st argument.
+
+Q1)WAQTD ename, sal, comm and total salary for all the employee.
+ans- select ename, sal, comm, sal+nvl(comm,0)  from emp; 
+
+2)nvl2():-Used to overcome the drawback null values.
+Syntax:nvl2(arg1,arg2,arg3)
+-If the arg1 is null it substitutes 3rd argument.
+-If the arg1 is not null it substitutes 2nd argument.
+
+Q1)WAQTD ename,comm also if the employee earn comm display as 'earning comm' else display 'no commision'.
+ans- select ename,comm,nvl2(comm,'earn comm','no comm') from emp;
+
+Convertion srf:- to_char
+1)to_char():- Used to convert the date type into date string.
+Syntax: to_char(arg1,arg2)
+ arg1:- date
+ arg2:- 'date format'
+ 
+Date format:-
+d:- 1,2,3,4,5,6,7(sunday-1,monday-2,.....)
+dy:- sun,mon,tue,wed,....
+dd:- date (4-apr-23 -->4)
+day:- monday,tuesday,wednesday,.....
+mm:- month in number (jan-1, feb-2, .....)
+mon:- 1st three character of the month (JAN,FEB,MAR.....) 
+month:- january,frbruary,march.....
+y:- (2023)-->3
+yy:- (2023)-->23
+yyy:- (2023)-->023
+yyyy:- 2023
+year:- twenty twenty three
+HH12:- 12 hour format
+HH24:- 24 hour format
+MI:- minutes
+SS:- seconds
+
+Q1)WAQTD today's date.
+ans- select to_char(current_date,'DD') from dual;
+
+Q1)WAQTD today's day.
+ans- select to_char(current_date,'DAY') from dual;
+select to_char(current_date,'DY') from dual;
+
+Q2)WAQTD employee name and hiredate, also extract day from all the employees hiredate.
+ans- select ename, hiredate, to_char(hiredate,'DAY') from emp;
+
+Q3)WAQTD employee name and hiredate, if employee hired on THURSDAY.
+ans- select ename, hiredate from emp
+	 where to_char(hiredate,'FMDAY')='THURSDAY';
+	 
+Q4)WAQTD employee name and hiredate if employee hired on december.
+ans- 
+	 
+Q5)WAQTD employee name and hiredate , if employee hired on 20th.
+ans-
+
+Q6)WAQTD employee name and hiredate, if the reverse of month 4th character is vowel.
+ans- select ename,hiredate from emp
+	 where substr(reverse(to_char(hiredate,'MONTH')),4,1) in('A','E','I','O','U');
+
+Q7)WAQTD employee name and hiredate, if the 3rd character of month is same as their day's 3rd character.
+ans- select ename, hiredate from emp
+	 where substr(to_char(hiredate,'FMMONTH'),3,1)=substr(to_char(hiredate,'FMDAY'),3,1);
+
+Q8)WAQTD employee name and hiredate, if employee hired in year nineteen eight.
+ans- 
+
+NOTE:- FILL MODE used to fill space to complete the length.
+
+to_date: Used to convert date string to date type.
+to_date(arg1,arg2) -->(datestring,format of date string)
+
+ex:- select to_date('12:SEP:2023','DD:MON:YYYY') from dual;
