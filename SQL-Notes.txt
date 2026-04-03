@@ -877,7 +877,7 @@ ans- select ename, extract(day from hiredate) from emp
 	 where ename in('KING','SCOTT') and deptno in (10,20,30) and length(ename)=4;
 
 Q4)WAQT extract the month for all the employee.
-ans- 
+ans- select ename, extract(month from hiredate) from emp;
 
 Q5)WAQTD ename, hiredate and extract the date where employees are hired.
 ans-
@@ -902,8 +902,12 @@ Syntax:nvl2(arg1,arg2,arg3)
 -If the arg1 is null it substitutes 3rd argument.
 -If the arg1 is not null it substitutes 2nd argument.
 
-Q1)WAQTD ename,comm also if the employee earn comm display as 'earning comm' else display 'no commision'.
+Q1)WAQTD ename, comm also if the employee earn comm display as 'earning comm' else display 'no commision'.
 ans- select ename,comm,nvl2(comm,'earn comm','no comm') from emp;
+
+Q2)WAQTD ename, mgr, and department also if the employee has a manager then display 'You have a manager' else display 'You do not have a manager'. 
+ans- select ename, mgr, deptno, nvl2(mgr, 'You have a manager', 'You do not have a manager')
+	from emp;
 
 Convertion srf:- to_char
 1)to_char():- Used to convert the date type into date string.
@@ -936,7 +940,7 @@ Q1)WAQTD today's day.
 ans- select to_char(current_date,'DAY') from dual;
 select to_char(current_date,'DY') from dual;
 
-Q2)WAQTD employee name and hiredate, also extract day from all the employees hiredate.
+Q2)WAQTD employee name and hiredate, also display day from all the employees hiredate.
 ans- select ename, hiredate, to_char(hiredate,'DAY') from emp;
 
 Q3)WAQTD employee name and hiredate, if employee hired on THURSDAY.
@@ -966,3 +970,250 @@ to_date: Used to convert date string to date type.
 to_date(arg1,arg2) -->(datestring,format of date string)
 
 ex:- select to_date('12:SEP:2023','DD:MON:YYYY') from dual;
+
+
+# Multi-Row Functions/ Group Function / aggregate:-
+-It takes n numbers of inputs and then executes and produce one single output.
+-MRF ignores null value.
+-Along with MRF we cannot includes any other colName in select clause, if we want to include we must use same in group by clause.
+-MRF cannot be writtern in where clause.
+-count() is the only function which takes * as an argument.
+
+max():-It is used to find the highest/maximum value in the specific column.
+Syntax:- max(arg1)
+
+Q)WAQTD max sal given to emp.
+ans- select max(sal) from emp;
+
+Q)WAQTD max salary given to SALESMAN.
+ans- select max(sal) from emp
+	where job='SALESMAN';
+
+min():-It is used to display the minimum values given to specified column.
+Syntax: min(arg1)
+
+Q1)WAQTD minimum salary given to dept 10.
+ans- select min(sal) from emp where deptno=10;
+
+Q2)WAQTD minimum salary given to SALESMAN if they work in deptno 10 or 20.
+ans- 
+
+Q3)WAQTD minimum salary if the employee name starts with vowels and work in deptno 10 or 20.
+ans- select min(sal) from emp where deptno in (10,20) and substr(ename,1,1) in ('A','E','I','O','U'); 
+
+Q4)WAQTD minimum salary given to clerk who works in deptno 10 or 30.
+ans- 
+
+Q5)WAQTD minimum salary who works in deptno 30 as manager.
+ans- select min(sal) from emp where deptno = 30 and job='MANAGER';
+
+sum():- It is used to obtain the total value for specified column.
+Syntax: sum(arg1)
+
+Q1)WAQTD total salary given to all employee.
+ans- select sum(sal) from emp;
+
+Q2)WAQTD total salary given to employee who works as CLERK.
+ans- select sum(sal) from emp where job='CLERK';
+
+Q3)WAQTD total salary given to employee who works in deptno 20 or 30.
+ans- 
+
+Q4)WAQTD total salary given to employees whoes name ends with vowels and also work as CLERK or manager in deptno 10 or 20 or 30.
+ans- select sum(sal) from emp where substr(reverse(ename),1,1) in ('A','E','I','O','U') and job in ('CLERK','MANAGER') and deptno in (10,20,30);
+
+Q5)WAQTD total salary given to dept 20.
+ans- 
+
+avg:- Used to obtain the average value of specified column.
+Syntax: avg(arg1)
+
+Q1)WAQTD average salary given to all employee.
+ans- select avg(sal) from emp;
+
+Q2)WAQTD average salary given to employee thoes who works in deptno 20.
+ans- 
+
+Q3)WAQTD average salary given to manager.
+ans-
+
+Q4)WAQTD average salary given to clerk in deptno 10.
+ans- 
+
+
+count():- It is used to obtain no of values present in specifed column.
+Syntax: count(arg1/*)
+Note:- count() is only mrf() which takes * as an argument.
+
+Q1)WAQTD no. of employees present in the table.
+ans- select count(*) from emp;
+
+Q2)WAQTD no. of employees working as clerk.
+ans- select count(*) from emp where job='CLERK' ;
+
+Q3)WAQTD no. of employees working in deptno 10.
+ans- 
+
+Q4)WAQTD no. of employees name starting with consonants.
+ans- 
+
+Q5)WAQTD no. of employees hired in 03-DEC-81.
+ans- 
+
+Q6)WAQTD no. of employees working as manager in deptno 10 or 30.
+ans-;
+
+Q7)WAQTD no. of unique salary present in the table.
+ans- select count(distinct sal) from emp;
+
+Q8)Calculate the diffrence of number of jobs with number of distinct job.
+ans- select count(job)- count(distinct job) from emp; 
+
+Q9)WAQTD maximum salary, minimum salary, total salary, average salary of salesman along with number of employee working as salesman.
+ans- select max(sal), min(sal), sum(sal), avg(sal), count(job) from emp where job='SALESMAN';
+
+Q10)WAQTD number of employees earning commision as analyst.
+ans- 
+
+
+Group By Clause:-
+-Used to group the records.
+-After group by, any clause that executes, it executes group by group.
+-The column-name or expresion which is written in group by clause can be included in select clause with group function(mrf()).
+-It takes group of rows, if it finds common value, then it will be group to one.
+
+Syntax: select multi-row-function/group by expresion
+		from table-name
+		where <condition>
+		group by expresion;
+Order of execution: 1)from
+					2)where(executes row by row)
+					3)group by
+					4)select(executes group by group)
+
+Q1)WAQTD maximum salary given to each dept.
+ans- select max(sal), deptno from emp
+	 group by deptno;
+
+Q2)WAQTD minimum salary given to each dept.
+ans- 
+	 
+Q3)WAQTD maximum salary given to each job if the employee works in deptno 10 or 20.
+ans- select max(sal), job from emp
+	 where deptno in (10,20)
+	 group by job;
+
+Q4)WAQTD minimum salary given to each job if the employee who dont earn any commision.
+ans- select min(sal), job from emp
+	where comm is not null 
+	group by job;
+	 
+Q5)WAQTD total salary given to each dept if the employee works as clerk.
+ans- select sum(sal), deptno from emp
+	where job = 'CLERK'
+	group by deptno;
+	 
+Q6)WAQTD total salary given to each job.
+ans- 
+
+Q7)WAQTD average salary given to each job, if the employee works in dept 10 or 20.
+ans-
+	 
+Q8)WAQTD no. of employees working in each dept.
+ans- 
+	 
+Q9)WAQTD no. of employees working in each job.
+ans- 
+	 
+Q10)WAQTD no. of employees working in each dept as clerk or manager.
+ans- 
+	 
+Q11)WAQTD no. of times each salary present.
+ans- select count(sal), sal from emp
+	group by sal;
+	 
+Q12)WAQTD no. of times each employee name is present.
+ans- 
+	 
+Q13)WAQTD no. of employees earning some salary in each job and also have reporting manager.
+ans- select count(ename), job from emp
+	where mgr is not null and sal is not null
+	group by job; 
+	 
+Q14)WAQTD no. of employees working in each dept, if the name last 2nd character is R.
+ans- 
+
+Q15)WAQTD no. of employee working in each dept if the employees names ends with consonants.
+ans- 
+
+
+having clause:- Used to filter the groups.
+-having clause is written after the group by clause.
+-We can use having clause to write the condition based on group function/multi-row-function/aggregate function.
+Syntax: select mrf/group by expresion  -->5 (group by group)
+		from table-name               -->1 
+		where <condition> 			  -->2 (row by row)
+		group by expresion 			  -->3 
+		having <condition>; 		  -->4 (group by group)
+		
+diffrence between where and having:
+1)where : It is used to filter records.
+-It executes row by row.
+-We can't use mrf() in where clause.
+-Where clause is implimented on rows.
+-We write where clause before group by clause.
+-We can use where clause without using group by group clause.
+
+2)having: It is used to filter the group.
+-It executes based on group by output(group by group).
+-We can use mrf() in having clause.
+-Having clause is executed on columns.
+-It is written after group by clause.
+-We should use having clause after group by clause, if there is no group by clause there will be no meaning for having clause.
+
+Q1)WAQTD no. of employees working in each dept display if at least 2 employee working in each dept.
+ans- select count(*), deptno from emp 
+	 group by deptno
+	 having count(*)>=2 ;
+	 
+Q2)WAQTD no. of employees working in each job if at least 3 employee working in each job.
+ans- select count(*), job from emp
+	 group by job
+	 having count(*)>=3 ;
+	 
+Q3)WAQTD salary that are repeated.
+ans- select count(*), sal from emp
+	group by sal
+	having count(*)>1;
+	 
+Q4)WAQTD employee name which is repeated.
+ans- 
+	 
+Q5)WAQTD no. of employees with dept no if employee working in each dept if there atleast 2 clerk in each dept .
+ans- 
+	 
+Q6)WAQTD total salary neded to pay all the employees if there are atleast 4 employee in each dept.
+ans- 
+	 
+Q7)WAQTD no. of employee earning salary more 1200 in each job and total salary neded to pay  all the employee for each job must exceed 3800.
+ans- 
+	 
+Q8)WAQTD deptno and no of employee working in each dept if there exactly 2 employee working in each dept as ANALYST.
+ans- 
+	 
+Q9)WAQTD minimum and maximum salaries of each job if minimum salary is more than 1000 and maximum salary is less than 5000.
+ans-
+	 
+Q10)WAQTD average salary of each dept if average salary is less than 3000 and maximum salary exceeds 2600.
+ans-
+	 
+Q11)WAQTD hiredate which are duplicated in emp table.
+ans-
+
+Q12)Display the deptno and salary, if employee earn same salary in same dept.
+ans-
+
+Q13)Display the job,sal and deptno, if employee work in same job with same salary and same dept.
+ans- select count(*),job,sal,deptno from emp
+	 group by job,sal,deptno
+	 having count(*)>1;
