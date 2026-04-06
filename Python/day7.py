@@ -112,7 +112,12 @@ l2 = list((60, 70, 80, 90, 100))
 # print(l1)
 
 l1.sort(reverse=True)
-print(l1)
+# print(l1)
 
 l3 = l1.copy()
-print(l3)
+# print(l3)
+
+
+for i in range(5):
+    for j in range(5):
+        print(i,j)

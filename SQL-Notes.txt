@@ -1217,3 +1217,88 @@ Q13)Display the job,sal and deptno, if employee work in same job with same salar
 ans- select count(*),job,sal,deptno from emp
 	 group by job,sal,deptno
 	 having count(*)>1;
+
+	
+Order by clause:
+-Used to sort the data according to asc or desc.
+-By default order by clause helps to sort in acs order.
+-We can pass more than one column in order by clause, always 1st preference give to the 1st column.
+-Instead of passing the column-name we can also sort by using the column-number.
+
+Syntax: select */distinct(col-name)
+		from table-name
+		order by col-1,col-2......  asc/desc;
+		
+order of execution: 1)from  2)distinct   3)select   4)order by
+
+Syntax-2: select gf/group by expresion
+		  from table-name
+		  where <condition>
+		  group by column-name
+		  having <condition>
+		  order by col-1,col-2......  asc/desc;
+		  
+order of execution: 1)from  2)where  3)group by  4)having  5)select  6)order by
+
+Q1)WAQTD details of employee and also display the salary  according to lowest to highest.
+ans- select * from emp
+	 order by sal;
+	 
+Q2)WAQTD details of employee and also display the ename according to desc order.
+ans- select * from emp
+	 order by ename desc;
+	 
+Q3)WAQTD details of employee and also sort according to the latest hiredate at the first row.
+ans- select * from emp
+	order by hiredate desc;
+	 
+Q4)WAQTD details of employee and also sort the hiredate according to asc order.
+ans- 
+	 
+Q5)WAQTD repeated salary and sort the salary according to asc order. 
+ans- select sal from emp
+	 group by sal
+	 having count(*)>1
+	 order by sal;
+	 
+Q6)WAQTD no of employee working in each job, also sort according to no of employee in desc order.
+ans- 
+
+
+Subquery:-
+-A query which is written inside another query is called subquery.
+-The query which is written inside the parenthesis will be identified as subqueries.
+-There are two main queries :-
+		1)Outer/Main query
+		2)Inner/Sub query
+
+Workflow:
+step1:- subquery gets executed 1st and produce some output.
+step2:- output of sub-query given as input of the main query and then main query gets executed.
+step3:- after execution of the outer-query it produce complete result.
+
+Syntax: select gf/group by exp
+		from table-name
+		where col-name (=/in) (select group by exp/col-name
+							   from table-name where <condition>
+							   group by exp
+							   having <condition>)
+		group by col-n
+		having <condition>
+		order by col-name;
+
+**-> Order by clause cannot be used in sub-query.
+
+Types of sub-query:-
+1)Single Row Subquery
+2)Multi Row Subquery
+3)Nested Subquery
+4)Inline Subquery
+5)Co-related Subquery
+
+1)Single Row Subquery:- If the sub-query return exactly one output/value is known as Single Row Subquery.
+- It supports both relational(<,>,<=,>=,=,!=) and special(in, not in) operator.
+
+2)Multi Row Subquery:- If the sub-query return more than one output/value will be known as Multi Row Subquery.
+- It supports special operator(in, not in) as well as (ANY and ALL operator).
+
