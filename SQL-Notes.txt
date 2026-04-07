@@ -1302,3 +1302,127 @@ Types of sub-query:-
 2)Multi Row Subquery:- If the sub-query return more than one output/value will be known as Multi Row Subquery.
 - It supports special operator(in, not in) as well as (ANY and ALL operator).
 
+When to use sub-query ?
+Case-1: 
+-When unknown is present in the question we need to use sub-query.
+
+Case-2:
+-Display the data from one table but the condition base on another table.
+
+Case-3:
+-Nested sub-query (max/min)
+
+Case-4:
+-To extract ALL or ANY
+
+Case-5:
+-When relation present in the question.
+
+
+Case-1:
+Q1)WAQTD employee details if employee is working in same dept as ALLEN.
+ans- select * from emp where deptno= (select deptno from emp where ename='ALLEN');
+
+Q2)WAQTD employee details if employee working in same designation where Miller is working.
+ans- select * from emp
+	where job = (select job from emp where ename='MILLER');
+
+Q3)WAQTD employee name and hiredate if employee hired in the same date where JONES is hired.
+ans- 
+
+Q4)WAQTD ename,sal and deptno if employee earning same as SCOTT if they work in dept 10 or 20 and name start with vowel.
+
+Q)WAQTD details of emp who are working in the same department as MILLER also employee should earn more than 1000.
+ans- 
+
+Q)WAQTD the names of emp if emp earn more than smith.
+ans- select ename from emp
+	where sal > (select sal from emp where ename='SMITH');
+
+Q)WAQTD details of emp is earning same salary as SCOTT and if they work in dept no 10 or 20 and name starts with vowel.
+ans- select * from emp
+	where sal = (select sal from emp where ename='SCOTT') and deptno in (10,20) and substr(ename, 1,1) in ('A', 'E', 'I', 'O', 'U'); 
+
+Case-2:
+-Display the data from one table and the condition based on another table.
+
+Q)WAQTD emp details who are working in New York.
+select * from emp
+where deptno = (select deptno from dept where loc = 'NEW YORK');
+
+Q)WAQTD dept name of emp who are working as CLERK.
+select dname from dept 
+where deptno in (select deptno from emp where job = 'CLERK');
+
+Q)WAQTD dept details if the emp earning more than 2000
+select * from dept 
+where deptno in (select deptno from emp where sal > 2000);
+
+Q)WAQTD dept details if the emp earning more than 2000 but less than KING
+
+Case 3:- Finding maximum and minimum value.
+Q)WAQTD details of the employee who got maximum salary 
+select * from emp
+where sal = (select max(sal) from emp);
+
+Q)WAQTD details of the employee who got minimum salary 
+
+Q)WAQTD 2nd maximum sal
+select max(sal) from emp
+where sal < (select max(sal) from emp);
+
+Q)WAQTD details of emp getting 3rd max sal.
+select * from emp 
+where sal = (select max(sal) from emp
+where sal < (select max(sal) from emp 
+where sal < (select max(sal) from emp)));
+
+Q) Display department details of emp if getting highest sal
+
+Q)Display details of the emp who got hired as last emp
+select * from emp
+where hiredate = (select max(hiredate) from emp);
+
+Case 4:- Based on subquery special characters/operators
+ALL:- It is a special operator used along with a relational operator to compare the values present in RHS.
+-ALL operator returns true if all the values at the LHS and the RHS has the satisfying the condition.
+
+ANY:- It is a special operator used along with relational operator to compare the values in RHS and it retuns true if any one value at the RHS satisfied the condition.
+
+Q)Display emp details if emp earning more than SMITH(when we have more than one smith) .
+select * from emp
+where sal> all (select sal from emp
+	where ename = 'SMITH');
+	
+Q) Display details of emp whose sal is more than the maximum sal of each dept.
+select * from emp
+where sal> all (select max(sal) from emp
+	group by deptno);
+	
+Q) Display details if emp earning less than at least one SALESMAN.
+select * from emp 
+where sal < any (select sal from emp
+	where job='SALESMAN');
+	
+Q)Display ename, sal, hiredate if emp earning sal more than deptno 20 but less than deptno 10.
+select ename, sal, hiredate from emp
+where sal > all (select sal from emp where deptno = 20)
+	and sal < all (select sal from emp where deptno = 10);
+	
+Case 5:- When relation present in question.
+
+Q) Display smith's manager name.
+select ename from emp 
+where empno = (select mgr from emp 
+		where ename='SMITH');
+		
+Q) Display MARTIN's manager also check if his name starting with consonants.
+select ename from emp
+where empno = (select mgr from emp
+	where ename='MARTIN') and 
+	substr(ename, 1,1) not in ('A', 'E','I', 'O','U');
+	
+Q) Display MILLER's manager's name if he works in dept 10 or 20
+select ename from emp
+where empno = (select mgr from emp where ename='MILLER')
+	and deptno in (10,20);
