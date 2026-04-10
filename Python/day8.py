@@ -25,6 +25,7 @@ class Mobile:
 
 # mobile1 = Mobile("Samsung", "Black", 8)
 # mobile1.show_details()
+# print(mobile1.company)
 
 # mobile2 = Mobile("Apple", "White", 4)
 # mobile2.show_details()
@@ -55,8 +56,9 @@ class Employee:
         print(f"ID: {id}, Name: {name}, Position: {position}")
 
 emp1 = Employee(101, "Alice", "Developer")
+emp2 = Employee(102, "Bob", "Manager")
 # emp1.login()
 # emp1.logout()
-emp1.show_details(emp1.id, emp1.name, emp1.position)
-emp1.show_details(1, 'Smith', 'Manager')
+emp1.show_details(emp1.id, emp2.name, emp1.position)
+# emp1.show_details(1, 'Smith', 'Manager')
 # print(emp1.name)

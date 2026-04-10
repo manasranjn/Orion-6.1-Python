@@ -28,7 +28,7 @@ class B(A):
     def method_b(self):
         return "Method B"
 
-class C(B):
+class C:
     def method_c(self):
         return "Method C"
         
@@ -36,7 +36,7 @@ class D:
     def method_d(self):
         return "Method D"
     
-class E(C,D):
+class E(B,C,D):
     def method_e(self):
         return "Method E"
 

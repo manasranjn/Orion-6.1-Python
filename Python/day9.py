@@ -52,6 +52,7 @@ class Person(Parent):
 
 p1 = Person()
 # p1.show()
+# obj1.show()
 
 # Simple Inheritance
 class A:
@@ -99,10 +100,10 @@ class Sedan(Car):
     def features(self):
         print("Sedan with advanced features")
 
-sedanObj = Sedan()
-sedanObj.features()
-sedanObj.start()
-sedanObj.engine()
+# sedanObj = Sedan()
+# sedanObj.features()
+# sedanObj.start()
+# sedanObj.engine()
 
 
 
