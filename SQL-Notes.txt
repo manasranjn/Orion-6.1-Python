@@ -1589,3 +1589,116 @@ select e.ename, m1.ename, m2.ename
 from emp e, emp m1, emp m2
 where e.mgr = m1.empno and
 m1.mgr = m2.empno;
+
+Q)WAQTD ename, manager name if employee earning more than all the SMITH.
+Q)WAQTD emp name, and manager name if manager earning more than BLAKE.
+Q)WAQTD emp name, and manager name and his manager name, if emp earning more than ALLEN and if emp designation is same as emp's manager's manager designation.
+Q)Identify the department number with least employee working, and display the department name along with employee count.
+
+
+
+SET-OPERATORS:- Used to merge multiple select statement and produce single result.
+-No of cilumns and data type should be same
+
+Types of Operators:-
+Union- It is used to combine the results of two or more select statement.
+-Inside select statement, numbers of column and datatype should be same.
+-Repeated data will be displayed only once.
+-Output will be displayed in alphabetical order.
+
+select ename from emp
+union
+select dname from dept;
+
+select ename from emp
+union
+select job from emp;
+
+Union all- It takes all the records from all the select statements.
+-Result display based on all the records from 1st table, later merge all the records from 2nd table.
+
+select ename from emp
+union all
+select job from emp;
+
+select mgr from emp
+union all
+select deptno from dept;
+
+Intersect-
+select ename from emp
+intersect
+select dname from dept;
+
+select deptno from emp
+intersect
+select deptno from dept;
+
+select empno from emp
+intersect
+select mgr from emp;
+
+select job from emp
+intersect 
+select dname from dept;
+
+Minus- Types of set operator used to merge the result from one or more select statement
+
+select empno from emp
+minus
+select mgr from emp;
+
+select deptno from dept
+minus
+select deptno from emp;
+
+select ename from emp
+minus
+select dname from dept;
+
+Co-related Subquery:-
+Q) WAQTD dname where employee are working.
+select d.dname from dept d
+where d.deptno in (select e.deptno from emp e
+	where d.deptno = e.deptno);
+	
+Q) WAQTD dname where employee are not working.
+select d.dname from dept d
+where d.deptno not in (select e.deptno from emp e
+	where d.deptno = e.deptno);
+	
+Q)Find the 2nd maximum sal
+select e1.sal from emp e1
+where 1 = (select count(distinct e2.sal) from emp e2
+	where e1.sal < e2.sal);
+
+
+Q)Find 4th maximum salary
+Q)Find 2nd maximum and 5th max salary
+Q)WAQTD department name and location of employee who is earning 5th maximum salary
+	
+Case Expression:
+select col
+case 
+	when condition1 then value
+	when condition2 then value
+	when condition3 then value
+	else value
+end
+from table_name;
+
+select ename, sal,
+case 
+	when sal > 2000 then 'Earning good salary'
+	else 'Less salary'
+end as stmnt
+from emp;
+
+select ename, sal,
+case 
+	when sal >= 3000 then 'Earning good salary'
+	when sal >= 2000 then 'Salary is ok'
+	when sal >= 1000 then 'Less salary'
+	else 'Chillar'
+end as statement
+from emp;
