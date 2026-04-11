@@ -24,7 +24,7 @@
 # #   num=int(input("enter the number"))
 #   for i in range(1,num+1):
 #     fact=fact*i
-#     i+=1 #unneccesry
+#     # i+=1 #unneccesry
 #   print(fact)
 # calculatefact(5)
 
@@ -59,7 +59,7 @@
 # rev = 0
 
 # while(num>0):# 123, 12, 1
-#     rem = num % 10 #3,2,1
+#     rem = num % 10 #3, 2, 1
 #     rev = rev * 10 + rem #0+3= 3, 3*10= 30+2=32, 32*10=320+1=321
 #     num = num // 10 #12, 1
 # print(rev)

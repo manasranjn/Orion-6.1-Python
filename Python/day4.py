@@ -2,8 +2,8 @@
 # for i in range():
 #     statement
 
-# for i in range(10):
-#     print(i)
+for i in range(10):
+    print(i)
 
 # for i in range(2,10):
 #     print(i)
@@ -55,7 +55,7 @@ x = 0
 
 # print(x)
 
-for i in range(4):
-    while i < 4:
-        print(i)
-        i += 1
+# for i in range(4):
+#     while i < 4:
+#         print(i)
+#         i += 1
